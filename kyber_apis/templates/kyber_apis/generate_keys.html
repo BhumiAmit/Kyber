@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Keys</title>
+</head>
+<body>
+
+<h2>Generate Key Pair</h2>
+<button id="generateButton">Generate Keys</button>
+
+<h3>Keys:</h3>
+<p><strong>Public Key (PK):</strong> <span id="publicKey"></span></p>
+<p><strong>Secret Key (SK):</strong> <span id="secretKey"></span></p>
+
+<script>
+    document.getElementById('generateButton').addEventListener('click', function() {
+        fetch('/generate-keys/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include any necessary headers, such as CSRF tokens, authentication, etc.
+            }
+        }).then(response => response.json())
+        .then(data => {
+            document.getElementById('publicKey').textContent = data.pk;
+            document.getElementById('secretKey').textContent = data.sk;
+        }).catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>
